@@ -2,8 +2,10 @@ import React, { useState } from 'react';
 import Paper from '@mui/material/Paper';
 import { Button, Dialog, DialogTitle, DialogContent } from '@mui/material';
 import Grid from '@mui/material/Grid';
+import Tooltip from '@mui/material/Tooltip';
 import ElectricBoltIcon from '@mui/icons-material/ElectricBolt';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import WarningIcon from '@mui/icons-material/Warning';
 
 const JobCard = ({
     link,
@@ -40,7 +42,9 @@ const JobCard = ({
           {location}
         </Grid>
         <Grid item md={12} sm={12} xs={12}>
-          <span>Estimated Salary: </span>{currencyCode} {minSalary} LPA - {currencyCode} {maxSalary} LPA
+          <span>Estimated Salary: </span>{currencyCode} {minSalary} LPA - {currencyCode} {maxSalary} LPA <Tooltip title="Estimated by Weekday. Not provided by employer" placement="top">
+            <WarningIcon fontSize="small" style={{color: '#ffc400', marginBottom: "-4px"}} />
+          </Tooltip>
         </Grid>
         <Grid item md={12} sm={12} xs={12}>
           <span style={{fontSize: '1rem', lineHeight: '1.5', fontWeight: '500'}}>About Company:</span>
