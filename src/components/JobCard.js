@@ -1,6 +1,6 @@
-import React from 'react';
-import { Button } from '@mui/material';
+import React, { useState } from 'react';
 import Paper from '@mui/material/Paper';
+import { Button, Dialog, DialogTitle, DialogContent } from '@mui/material';
 import Grid from '@mui/material/Grid';
 import ElectricBoltIcon from '@mui/icons-material/ElectricBolt';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
@@ -17,9 +17,18 @@ const JobCard = ({
     minSalary,
     currencyCode,
 }) => {
+  const [open, setOpen] = useState(false);
+  
   const easyApply = (link, uid) => {
     window.location.href = link + '/weekdayUid=' + uid;
   }
+  const handleShowMore = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   return (
     <Paper id="jobCard" elevation={3} style={{display: 'flex', flexWrap: 'wrap', margin: '2%', padding: '15px 20px'}}>
@@ -35,7 +44,23 @@ const JobCard = ({
         </Grid>
         <Grid item md={12} sm={12} xs={12}>
           <span style={{fontSize: '1rem', lineHeight: '1.5', fontWeight: '500'}}>About Company:</span>
-          {details.substring(0, 500)}
+          <div style={{position: 'relative', overflow: 'hidden'}}>
+            <div style={{maskImage: 'linear-gradient(rgb(255, 255, 255), rgb(255, 255, 255), rgba(255, 255, 255, 0))', whiteSpace: 'pre-wrap', fontSize: '14px'}}>
+              {details.substring(0, 500)}
+            </div>
+          </div>
+          <span style={{display: 'flex', justifyContent: 'center', margin: '-20px 0px -40px 0px'}}>
+            <Button onClick={handleShowMore} color="primary">
+              Show more
+            </Button>
+          </span>
+          <Dialog open={open} onClose={handleClose}>
+            <DialogTitle style={{textAlign: 'center', fontSize: '1.25rem', lineHeight: '1.6', fontWeight: '600'}}>Job Description</DialogTitle>
+            <DialogContent>
+              <p style={{fontSize: '1rem', lineHeight: '1.5', fontWeight: '500'}}>About Company:</p>
+              <span style={{fontSize: '14px'}}>{details}</span>
+            </DialogContent>
+          </Dialog>
         </Grid>
         <Grid item md={12} sm={12} xs={12}>
           <p>Experience:</p>
