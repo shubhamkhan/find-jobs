@@ -14,10 +14,31 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const MemoizedCard = memo(
-    ({uid}) => {
+    ({
+        link,
+        uid,
+        details,
+        role,
+        location,
+        maxExp,
+        maxSalary,
+        minExp,
+        minSalary,
+        currencyCode,
+    }) => {
         return (
             <JobCard
                 key={uid}
+                link={link}
+                uid={uid}
+                details={details}
+                role={role}
+                location={location}
+                maxExp={maxExp}
+                maxSalary={maxSalary}
+                minExp={minExp}
+                minSalary={minSalary}
+                currencyCode={currencyCode}
             />
         );
     }
@@ -44,6 +65,10 @@ const SearchJobs = () => {
         console.error(error);
     })
   }
+
+  const cardSkeleton = () => {
+    return null;
+  }
     
   return (
     <div className={classes.jobCardContainer}>
@@ -53,14 +78,25 @@ const SearchJobs = () => {
             {data.map((job, index) => {
                 return (
                     <Grid item md={4} sm={12} xs={12}>
-                        <MemoizedCard key={job.jdUid} />
+                        <MemoizedCard
+                            key={job.jdUid}
+                            link={job.jdLink}
+                            uid={job.jdUid}
+                            details={job.jobDetailsFromCompany}
+                            role={job.jobRole}
+                            location={job.location}
+                            maxExp={job.maxExp}
+                            maxSalary={job.maxJdSalary}
+                            minExp={job.minExp}
+                            minSalary={job.minJdSalary}
+                            currencyCode={job.salaryCurrencyCode}
+                        />
                     </Grid>
                 );
             })}
             </>
         ) : (
-            null
-            // add Skeleton
+            cardSkeleton()
         )}
       </Grid>
     </div>
