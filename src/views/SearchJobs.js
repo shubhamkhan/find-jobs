@@ -64,7 +64,7 @@ const SearchJobs = () => {
   }, []);
   
   const handleScroll = useCallback(() => {
-    if (window.innerHeight + document.documentElement.scrollTop >= document.documentElement.offsetHeight - 150) {
+    if (window.innerHeight + document.documentElement.scrollTop >= document.documentElement.offsetHeight - 200) {
       throttledLoadJobs();
     }
   }, [throttledLoadJobs]);
