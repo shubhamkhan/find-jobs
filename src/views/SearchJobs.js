@@ -1,23 +1,8 @@
-import React, { useState, useEffect, useCallback, memo, useRef } from 'react';
+import React, { useState, useEffect, useCallback, memo } from 'react';
 import Grid from '@mui/material/Grid';
 import JobCard from '../components/JobCard';
-import { getJobs } from '../service/SearchJobsService';
-
-const useThrottle = (callback, delay) => {
-  const timer = useRef(null);
-
-  return useCallback(
-    (...args) => {
-      if (!timer.current) {
-        timer.current = setTimeout(() => {
-          callback(...args);
-          timer.current = null;
-        }, delay);
-      }
-    },
-    [callback, delay]
-  );
-};
+import { getJobs } from '../services/SearchJobsService';
+import useThrottle from '../hooks/useThrottle';
 
 const MemoizedCard = memo(
   ({
