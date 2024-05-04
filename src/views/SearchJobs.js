@@ -46,7 +46,7 @@ const MemoizedCard = memo(
 
 const SearchJobs = () => {
   const [data, setData] = useState([]);
-  const [dataList, setDataList] = useState([]);
+  const [dataList, setDataList] = useState(null);
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(0);
 
@@ -99,8 +99,8 @@ const SearchJobs = () => {
   }
 
   const renderJobs = () => {
-    let d = dataList.length ? dataList : data;
-    return d.map((job, index) => {
+    let dt = dataList ? dataList : data;
+    return dt.map((job, index) => {
       return (
         <Grid item md={4} sm={12} xs={12} key={job.jdUid}>
           <MemoizedCard

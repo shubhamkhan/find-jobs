@@ -16,9 +16,10 @@ const FilterJob = ({ data, handleFilterJob }) => {
   });
   
   useEffect(() => {
+    handleFilterJob(data);
     filterJobs();
-  }, [filters])
-  
+  }, [filters, data])
+
   const handleFilterChange = (event, key) => {
     setFilters({
       ...filters,
@@ -27,7 +28,6 @@ const FilterJob = ({ data, handleFilterJob }) => {
   };
 
   const filterJobs = () => {
-    console.log(filters.location);
     const filteredJobs = data.filter(job => {
       return (
         (job.minExp >= parseInt(filters.minExp) || !filters.minExp) &&
@@ -39,7 +39,6 @@ const FilterJob = ({ data, handleFilterJob }) => {
       );
     });
     handleFilterJob(filteredJobs);
-    console.log(filteredJobs);
   };
 
   return (

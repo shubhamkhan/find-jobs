@@ -11,7 +11,6 @@ import ElectricBoltIcon from '@mui/icons-material/ElectricBolt';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import WarningIcon from '@mui/icons-material/Warning';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
-import CurrencyRupeeIcon from '@mui/icons-material/CurrencyRupee';
 
 const JobCard = ({
     companyName,
@@ -72,7 +71,13 @@ const JobCard = ({
   }
 
   return (
-    <Paper id="jobCard" elevation={3} style={{display: 'flex', flexWrap: 'wrap', borderRadius: '25px', margin: '2%', padding: '15px 20px'}}>
+    <Paper 
+      id="jobCard" 
+      elevation={3} 
+      style={{display: 'flex', flexWrap: 'wrap', borderRadius: '25px', margin: '2%', padding: '15px 20px', transition: 'transform 0.3s ease-in-out'}}
+      onMouseOver={(e) => { e.currentTarget.style.transform = 'scale(1.015)'; }}
+      onMouseOut={(e) => { e.currentTarget.style.transform = 'scale(1)'; }}
+      >
       <Grid container spacing={4}>
         <Grid md={12} sm={12} xs={12} style={{padding: '32px 10px 5px 32px'}}>
           <Stack direction="row" spacing={1}>
@@ -138,7 +143,7 @@ const JobCard = ({
             ) : null
           }
         </Grid>
-        <Grid md={12} sm={12} xs={12} style={{padding: '5px 0px 5px 32px'}}>
+        <Grid md={12} sm={12} xs={12} style={{padding: '5px 0px 5px 32px', marginTop: verifySalary ? '55px' : '0px'}}>
           <Button
             // disabled={disabledApplyButton}
             className=''
@@ -151,21 +156,23 @@ const JobCard = ({
           >
             Easy Apply
           </Button>
-            </Grid>
-            <Grid item md={12} sm={12} xs={12}>
-            <Button
-            // disabled={disabledAskReferralButton}
-            target="_blank"
-            className=''
-            variant='contained'
-            size='large'
-            startIcon={<AccountCircleIcon />}
-            style={{borderRadius: 5, width: '100%', backgroundColor: '#4943DA', color: 'white', fontWeight: 'bold', textTransform: 'none', marginTop: '-20px'}}
-            onClick={() => askReferral('weekday@works.com')}
-          >
-            Ask for referral
-          </Button>
         </Grid>
+          {!verifySalary ? (
+            <Grid item md={12} sm={12} xs={12}>
+                <Button
+                // disabled={disabledAskReferralButton}
+                target="_blank"
+                className=''
+                variant='contained'
+                size='large'
+                startIcon={<AccountCircleIcon />}
+                style={{borderRadius: 5, width: '100%', backgroundColor: '#4943DA', color: 'white', fontWeight: 'bold', textTransform: 'none', marginTop: '-40px'}}
+                onClick={() => askReferral('weekday@works.com')}
+              >
+                Ask for referral
+              </Button>
+            </Grid>
+          ):(null)}
       </Grid>
     </Paper>
   )
