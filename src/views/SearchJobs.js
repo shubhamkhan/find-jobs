@@ -4,6 +4,9 @@ import JobCard from '../components/JobCard';
 import { getJobs } from '../services/SearchJobsService';
 import useThrottle from '../hooks/useThrottle';
 import FilterJob from '../components/FilterJob';
+import Backdrop from '@mui/material/Backdrop';
+import CircularProgress from '@mui/material/CircularProgress';
+import Button from '@mui/material/Button';
 
 const MemoizedCard = memo(
   ({
@@ -59,12 +62,15 @@ const SearchJobs = () => {
         setPage(prev => prev + 6);
       } else {
         // Handle error or no data
+        console.log("Data not loaded");
       }
     } catch (error) {
       // Handle error
       console.error(error);
     }
-    setLoading(false);
+    setTimeout(() => {
+      setLoading(false);
+    }, 500);
   }, [page]);
 
   const throttledLoadJobs = useThrottle(loadJobs, 1000);
@@ -130,8 +136,15 @@ const SearchJobs = () => {
         <FilterJob data={data} handleFilterJob={handleFilterJob} />
       </Grid>
       <Grid container spacing={4}>
+        {loading && <span style={{position: 'absolute', left: '48%'}}>
+          <Backdrop
+            sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+            open={true}
+          >
+            <CircularProgress color="inherit" />
+          </Backdrop>
+        </span>}
         {renderJobs()}
-        {loading && <span style={{position: 'absolute', left: '48%'}}>Loading...</span>}
       </Grid>
     </div>
   );
