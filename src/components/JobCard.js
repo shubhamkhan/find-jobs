@@ -47,7 +47,7 @@ const JobCard = ({
   };
   
   const handleEstimatedSalary = (currencyCode, minSalary, maxSalary) => {
-    let ctc = 'Estimated Salary: ₹';
+    let ctc = '';
     if (minSalary) {
       ctc += `${minSalary} LPA`;
       if (maxSalary) {
@@ -79,12 +79,12 @@ const JobCard = ({
       onMouseOut={(e) => { e.currentTarget.style.transform = 'scale(1)'; }}
       >
       <Grid container spacing={4}>
-        <Grid md={12} sm={12} xs={12} style={{padding: '32px 10px 5px 32px'}}>
+        <Grid item md={12} sm={12} xs={12} style={{padding: '32px 10px 5px 32px'}}>
           <Stack direction="row" spacing={1}>
             <Chip avatar={<HourglassTopIcon fontSize="small" style={{color: '#58322B'}} />} size="small" label={postedDay > 1 ? ('Posted ' + postedDay + ' day ago') : ('Posted a day ago')} style={{fontSize: '10px', backgroundColor: 'white', border: '1px solid rgb(230, 230, 230)' ,boxShadow: 'rgba(6, 6, 6, 0.05) 0px 2px 6px 0px'}} />
           </Stack>
         </Grid>
-        <Grid md={12} sm={12} xs={12} style={{padding: '10px 32px 5px 32px'}}>
+        <Grid item md={12} sm={12} xs={12} style={{padding: '10px 32px 5px 32px'}}>
           <span style={{display: 'flex', alignItems: 'center'}}>
             <Stack direction="row" spacing={2}>
               <Avatar alt="Company Name" src={logo} /> 
@@ -96,9 +96,9 @@ const JobCard = ({
             </span>
           </span>
         </Grid>
-        <Grid md={12} sm={12} xs={12} style={{padding: '5px 32px 5px 32px'}}>
+        <Grid item md={12} sm={12} xs={12} style={{padding: '5px 32px 5px 32px'}}>
           <span style={{fontSize: '14px', fontWeight: 400, lineHeight: '1.43', color: '#4d596a'}}>
-            {handleEstimatedSalary(currencyCode, minSalary, maxSalary)}
+            {'Estimated Salary: ₹' + handleEstimatedSalary(currencyCode, minSalary, maxSalary)}
             {
               verifySalary ? (
                 <Tooltip title="Offered salary range" placement="top">
@@ -112,7 +112,7 @@ const JobCard = ({
             }
           </span>
         </Grid>
-        <Grid md={12} sm={12} xs={12} style={{padding: '10px 32px 5px 32px'}}>
+        <Grid item md={12} sm={12} xs={12} style={{padding: '10px 32px 5px 32px'}}>
           <span style={{fontSize: '1rem', lineHeight: '1.5', fontWeight: '500'}}>About Company:</span>
           <div style={{fontSize: '.80rem', lineHeight: '1', fontWeight: 'bolder', padding: '5px 0px'}}>About us</div>
           <div style={{position: 'relative', overflow: 'hidden'}}>
@@ -130,10 +130,15 @@ const JobCard = ({
             <DialogContent>
               <p style={{fontSize: '1rem', lineHeight: '1.5', fontWeight: '500'}}>About Company:</p>
               <span style={{fontSize: '14px'}}>{details}</span>
+              <p style={{fontSize: '1rem', lineHeight: '1', fontWeight: '500'}}>About Role:</p>
+              <p style={{lineHeight: '0.1', textTransform: 'capitalize'}}>Location: {location}</p>
+              <p style={{lineHeight: '0.1'}}>CTC:  ₹{handleEstimatedSalary(currencyCode, minSalary, maxSalary)} Depends on the Expertise </p>
+              <p style={{lineHeight: '0.1'}}>Experience: {handleExp(minExp, maxExp)}</p>
+              <span style={{fontSize: '14px'}}>{details}</span>
             </DialogContent>
           </Dialog>
         </Grid>
-        <Grid md={12} sm={12} xs={12} style={{padding: '25px 32px 5px 32px', height: '85px'}}>
+        <Grid item md={12} sm={12} xs={12} style={{padding: '25px 32px 5px 32px', height: '85px'}}>
           {
             handleExp(minExp, maxExp) !== '' ? (
               <>
@@ -143,7 +148,7 @@ const JobCard = ({
             ) : null
           }
         </Grid>
-        <Grid md={12} sm={12} xs={12} style={{padding: '5px 0px 5px 32px', marginTop: verifySalary ? '55px' : '0px'}}>
+        <Grid item md={12} sm={12} xs={12} style={{padding: '5px 0px 5px 32px', marginTop: verifySalary ? '55px' : '0px'}}>
           <Button
             // disabled={disabledApplyButton}
             className=''

@@ -28,10 +28,6 @@ const FilterJob = ({ data, handleFilterJob }) => {
     });
   };
 
-  const clearText = () => {
-    handleFilterChange({ target: { value: '' } }, 'location');
-  };
-
   const filterJobs = () => {
     const filteredJobs = data.filter(job => {
       return (
