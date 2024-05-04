@@ -19,6 +19,8 @@ const MemoizedCard = memo(
     minExp,
     minSalary,
     currencyCode,
+    verifySalary,
+    postedDay,
   }) => {
     return (
       <JobCard
@@ -30,11 +32,13 @@ const MemoizedCard = memo(
         role={role}
         location={location}
         logo={logo}
-        maxExp={maxExp}
-        maxSalary={maxSalary}
         minExp={minExp}
+        maxExp={maxExp}
         minSalary={minSalary}
+        maxSalary={maxSalary}
         currencyCode={currencyCode}
+        verifySalary={verifySalary}
+        postedDay={postedDay}
       />
     );
   }
@@ -86,6 +90,14 @@ const SearchJobs = () => {
     setDataList(jobList);
   }
 
+  const handleVerifySalary = (minSalary, maxSalary) => {
+    if(minSalary && maxSalary) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   const renderJobs = () => {
     let d = dataList.length ? dataList : data;
     return d.map((job, index) => {
@@ -99,11 +111,13 @@ const SearchJobs = () => {
             role={job.jobRole}
             location={job.location}
             logo={job.logoUrl}
-            maxExp={job.maxExp}
-            maxSalary={job.maxJdSalary}
             minExp={job.minExp}
+            maxExp={job.maxExp}
             minSalary={job.minJdSalary}
+            maxSalary={job.maxJdSalary}
             currencyCode={job.salaryCurrencyCode}
+            verifySalary={handleVerifySalary(job.minJdSalary, job.maxJdSalary)}
+            postedDay={job.minExp}
           />
         </Grid>
       );
