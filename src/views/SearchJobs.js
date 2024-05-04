@@ -3,6 +3,7 @@ import Grid from '@mui/material/Grid';
 import JobCard from '../components/JobCard';
 import { getJobs } from '../services/SearchJobsService';
 import useThrottle from '../hooks/useThrottle';
+import FilterJob from '../components/FilterJob';
 
 const MemoizedCard = memo(
   ({
@@ -41,6 +42,7 @@ const MemoizedCard = memo(
 
 const SearchJobs = () => {
   const [data, setData] = useState([]);
+  const [dataList, setDataList] = useState([]);
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(0);
 
@@ -80,8 +82,13 @@ const SearchJobs = () => {
     };
   }, [handleScroll]);
 
+  const handleFilterJob = (jobList) => {
+    setDataList(jobList);
+  }
+
   const renderJobs = () => {
-    return data.map((job, index) => {
+    let d = dataList.length ? dataList : data;
+    return d.map((job, index) => {
       return (
         <Grid item md={4} sm={12} xs={12} key={job.jdUid}>
           <MemoizedCard
@@ -106,8 +113,11 @@ const SearchJobs = () => {
   return (
     <div style={{ display: 'flex', flexWrap: 'wrap', overflow: 'hidden', margin: '2%' }}>
       <Grid container spacing={4}>
+        <FilterJob data={data} handleFilterJob={handleFilterJob} />
+      </Grid>
+      <Grid container spacing={4}>
         {renderJobs()}
-        {loading && <p>Loading...</p>}
+        {loading && <span style={{position: 'absolute', left: '48%'}}>Loading...</span>}
       </Grid>
     </div>
   );
