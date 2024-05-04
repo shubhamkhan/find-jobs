@@ -1,10 +1,10 @@
-# Find Job Application
+# Find Jobs Application
 
-This repository contains the source code for a Find Job application built with React. It allows users to filter job listings based on various criteria such as role, experience, location, and more.
+This repository contains the source code for a Find Jobs application built with React. It allows users to filter job listings based on various criteria such as role, experience, location, and more.
 
 # Live Demo
 
-This project was hosted in web you can check it [Find Job](https://shubhamkhan.github.io/find-job/).
+This project was hosted in web you can check it [Find Jobs](https://shubhamkhan.github.io/find-jobs/).
 
 ## Getting Started
 
