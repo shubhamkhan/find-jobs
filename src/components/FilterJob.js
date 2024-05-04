@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import TextField from '@mui/material/TextField';
-import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Autocomplete from '@mui/material/Autocomplete';
+import IconButton from '@mui/material/IconButton';
+import ClearIcon from '@mui/icons-material/Clear';
 
 const FilterJob = ({ data, handleFilterJob }) => {
   const [filters, setFilters] = useState({
@@ -27,11 +28,20 @@ const FilterJob = ({ data, handleFilterJob }) => {
     });
   };
 
+  const clearText = () => {
+    handleFilterChange({ target: { value: '' } }, 'location');
+  };
+
   const filterJobs = () => {
     const filteredJobs = data.filter(job => {
       return (
         (job.minExp >= parseInt(filters.minExp) || !filters.minExp) &&
-        (job.location?.toLowerCase() === filters.remote?.toLowerCase() || !filters.remote) &&
+          (
+            (filters.remote?.toLowerCase() === 'remote') ?
+              (job.location?.toLowerCase() === filters.remote?.toLowerCase() || !filters.remote)
+            :
+              (job.location?.toLowerCase() !== 'remote' || !filters.remote)
+          ) &&
         (job.location?.toLowerCase() === filters.location?.toLowerCase() || !filters.location) &&
         ((job.minJdSalary && job.minJdSalary >= parseInt(filters.minBasePay?.replace('L', ''))) || !filters.minBasePay) &&
         (job.companyName?.toLowerCase().includes(filters.companyName?.toLowerCase()) || !filters.companyName) &&
@@ -84,14 +94,25 @@ const FilterJob = ({ data, handleFilterJob }) => {
           />
         </Grid>
         <Grid item xs={12} sm={6} md={2}>
-          <TextField
-            fullWidth
-            disabled={filters.remote === 'Remote'}
-            label="Location"
-            size="small"
-            value={filters.location}
-            onChange={(event) => {handleFilterChange(event, 'location')}}
-          />
+          <div style={{ position: 'relative' }}>
+            <TextField
+              fullWidth
+              disabled={filters.remote === 'Remote'}
+              label="Location"
+              size="small"
+              value={filters.location}
+              onChange={(event) => handleFilterChange(event, 'location')}
+            />
+            {filters.location && (
+              <IconButton
+                aria-label="clear text"
+                style={{ position: 'absolute', right: 8, top: 4, height: '30px', width: '30px' }}
+                onClick={(event) => {handleFilterChange({ target: { value: '' } }, 'location')}}
+              >
+                <ClearIcon fontSize="small" />
+              </IconButton>
+            )}
+          </div>
         </Grid>
         <Grid item xs={12} sm={6} md={2}>
           <Autocomplete
@@ -104,17 +125,25 @@ const FilterJob = ({ data, handleFilterJob }) => {
           />
         </Grid>
         <Grid item xs={12} sm={6} md={2}>
-          <TextField
-            fullWidth
-            label="Company Name"
-            value={filters.companyName}
-            size="small"
-            onChange={(event) => handleFilterChange(event, 'companyName')}
-          />
+          <div style={{ position: 'relative' }}>
+            <TextField
+              fullWidth
+              label="Company Name"
+              value={filters.companyName}
+              size="small"
+              onChange={(event) => handleFilterChange(event, 'companyName')}
+            />
+            {filters.companyName && (
+              <IconButton
+                aria-label="clear text"
+                style={{ position: 'absolute', right: 8, top: 4, height: '30px', width: '30px' }}
+                onClick={(event) => {handleFilterChange({ target: { value: '' } }, 'companyName')}}
+              >
+                <ClearIcon fontSize="small" />
+              </IconButton>
+            )}
+          </div>
         </Grid>
-        {/* <Grid item xs={12}>
-          <Button variant="contained" onClick={filterJobs}>Filters</Button>
-        </Grid> */}
       </Grid>
     </Box>
   );
