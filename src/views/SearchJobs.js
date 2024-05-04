@@ -6,11 +6,13 @@ import useThrottle from '../hooks/useThrottle';
 
 const MemoizedCard = memo(
   ({
+    companyName,
     link,
     uid,
     details,
     role,
     location,
+    logo,
     maxExp,
     maxSalary,
     minExp,
@@ -20,11 +22,13 @@ const MemoizedCard = memo(
     return (
       <JobCard
         key={uid}
+        companyName={companyName}
         link={link}
         uid={uid}
         details={details}
         role={role}
         location={location}
+        logo={logo}
         maxExp={maxExp}
         maxSalary={maxSalary}
         minExp={minExp}
@@ -81,11 +85,13 @@ const SearchJobs = () => {
       return (
         <Grid item md={4} sm={12} xs={12} key={job.jdUid}>
           <MemoizedCard
+            companyName={job.companyName}
             link={job.jdLink}
             uid={job.jdUid}
             details={job.jobDetailsFromCompany}
             role={job.jobRole}
             location={job.location}
+            logo={job.logoUrl}
             maxExp={job.maxExp}
             maxSalary={job.maxJdSalary}
             minExp={job.minExp}

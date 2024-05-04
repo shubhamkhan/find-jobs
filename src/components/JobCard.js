@@ -12,11 +12,13 @@ import WarningIcon from '@mui/icons-material/Warning';
 import HourglassTopIcon from '@mui/icons-material/HourglassTop';
 
 const JobCard = ({
+    companyName,
     link,
     uid,
     details,
     role,
     location,
+    logo,
     maxExp,
     maxSalary,
     minExp,
@@ -52,10 +54,10 @@ const JobCard = ({
         <Grid md={12} sm={12} xs={12} style={{padding: '10px 32px 5px 32px'}}>
           <span style={{display: 'flex', alignItems: 'center'}}>
             <Stack direction="row" spacing={2}>
-              <Avatar alt="Company Name" src="/static/weekday.webp" /> 
+              <Avatar alt="Company Name" src={logo} /> 
             </Stack>
             <span style={{display: 'grid', marginLeft: 10}}>
-              <span style={{fontSize: '13px', fontWeight: 600, letterSpacing: '1px', marginBottom: '3px', color: '#8b8b8b'}}>Company Name</span>
+              <span style={{fontSize: '13px', fontWeight: 600, letterSpacing: '1px', marginBottom: '3px', color: '#8b8b8b'}}>{companyName}</span>
               <span style={{textTransform: 'capitalize', fontSize: '14px', lineHeight: '1.5'}}>{role} engineer</span>
               <span style={{textTransform: 'capitalize', fontSize: '11px', fontWeight: '500', marginTop: '5px'}}>{location}</span>
             </span>
